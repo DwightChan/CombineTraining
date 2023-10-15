@@ -94,6 +94,8 @@ testSample(label: "CurrentValueSubject sample2" ) {
 //    myScriber2 receiveValue: 2
 //    myScriber2 receiveValue: 66
 //    myScriber2 Failure
+
+    // 当第一个 subject 结束，那么第二也结束了，订阅者就再也收不到信息
 }
 
 testSample(label: "PassthroughSubject sample3" ) {
@@ -132,4 +134,6 @@ testSample(label: "PassthroughSubject sample3" ) {
 //    myScriber2 receiveValue: 2
 //    myScriber2 receiveValue: 66
 //    myScriber2 Failure
+
+    // 当第一个 subject 结束，那么第二也结束了，订阅者就再也收不到信息
 }
