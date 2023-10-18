@@ -13,6 +13,8 @@ public func testSample(label: String , testBlock: () -> Void) {
 var subscriptions = Set<AnyCancellable>()
 
 /// filter, 过滤数组中 小于 30 的数据
+/// filter 会把不符合条件的数据过滤掉
+/// filter 会把符合条件的数据传递给下游
 testSample(label: "01_filter"){
     let arrPublisher = [10,200,300,20,14].publisher
     arrPublisher

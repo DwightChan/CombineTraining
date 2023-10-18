@@ -67,9 +67,13 @@ testSample(label: "Subscriber sample31" ) {
     
     let publisher = PassthroughSubject<String, Never>()
     
+    /// 自定义 订阅者，结构体比 class 多一个实现 CustomCombineIdentifierConvertible 协议
+    /// 只需要 添加一个属性  public var combineIdentifier: CombineIdentifier  即可
     struct SearchSubscriber: Subscriber {
        
+        /// 结构体 为了保证每个订阅者都有唯一的标识符，我们可以使用 UUID 来生成一个唯一的标识符。
         public var combineIdentifier: CombineIdentifier { /// 注意这里的 CustomCombineIdentifierConvertible 协议实现。
+            /// 这里是系统自己给定 唯一 ID
             return CombineIdentifier()
         }
         

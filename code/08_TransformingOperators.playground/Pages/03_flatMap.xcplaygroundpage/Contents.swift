@@ -35,6 +35,7 @@ testSample(label: "03_flatMap") {
         }).store(in: &subscriptions)
 
     /// 以下的赋值将会 出发 receiveValue
+    /// 代表 发了一条新消息
     personA.message.value = "hi personA 2"
     chat.value = personA
 }
@@ -59,7 +60,11 @@ testSample(label: "03_flatMap01") {
         }).store(in: &subscriptions)
     /// 以下的赋值将会 出发 receiveValue
     personA.message.value = "hi personB, are you OK?"
+    /// 以下的赋值将会 出发 receiveValue
+    /// 代表 要将聊天频道切换到 personB
     chat.value = personB
+    /// 以下的赋值将会 出发 receiveValue
+    /// 代表 personB 发了一条新消息
     personB.message.value = "hi personA . Fine, thank you"
 }
 
@@ -73,6 +78,7 @@ testSample(label: "03_flatMap03") {
     
     let chat =  CurrentValueSubject<Chatter , Never>(personA)
     chat
+        // 设置了最大的上流 Publisher 数量为2
         .flatMap(maxPublishers : .max(2)) {
            $0.message
         }
@@ -87,7 +93,7 @@ testSample(label: "03_flatMap03") {
     chat.value = personB
     personA.message.value = "hi personA 3"
     personB.message.value = "hi personB 3"
-    
+    /// 因为maxPublishers : .max(2) ，所以 personC.message.value = "hi personC 1" 不会触发 receiveValue
     chat.value = personC
     personC.message.value = "personC: hi personC 2"
     

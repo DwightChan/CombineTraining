@@ -51,6 +51,9 @@ testSample(label: "04_tryMap"){
             return YourErrors.defalutError
         })
         .replaceError(with: 10) /// replace defalutError1 with 10; 这里的类型和Output 一致。
+        /// 接收到错误后，会将错误替换成 10
+        /// 如果不替换，会导致整个流程结束。
+        /// 如果替换，会继续传递数据到下流，并且不会再接收到错误。
         .sink(receiveCompletion: { completion in
             print("04_tryMap completion:\(completion)") /// 输出 MyErrors.defalutError1
         }, receiveValue: { value in

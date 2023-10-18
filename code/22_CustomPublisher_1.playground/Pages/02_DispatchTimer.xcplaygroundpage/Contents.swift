@@ -85,7 +85,7 @@ class DispatchTimerSubscription<S: Subscriber> : Combine.Subscription, Equatable
         subscriber = nil
     }
  
-    static func == (lhs: DispatchTimerSubscription, rhs: DispatchTimerSubscription) -> Bool {
+    static func == (lhs: DispatchTimerSubscription<S>, rhs: DispatchTimerSubscription<S>) -> Bool {
         lhs.combineIdentifier == rhs.combineIdentifier
     }
 }

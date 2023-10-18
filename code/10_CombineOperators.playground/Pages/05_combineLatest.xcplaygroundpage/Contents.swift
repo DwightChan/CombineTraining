@@ -23,6 +23,11 @@ testSample(label: "05_combineLatest") {
             print("05_combineLatest completion:\(completion)")
         }, receiveValue: { val1, val2  in /// 第一个参数来自sourcePublisher ， 第二个参数 来自 sourcePublisher2
             print("05_combineLatest val1 : \(val1) val2 : \(val2)")
+            // 05_combineLatest val1 : 55 val2 : a
+            // 05_combineLatest val1 : 300 val2 : a
+            // 05_combineLatest val1 : 300 val2 : b
+            // 05_combineLatest val1 : 300 val2 : c
+            // 05_combineLatest val1 : 400 val2 : c
         }).store(in: &subscriptions)
     
     sourcePublisher.send(55)

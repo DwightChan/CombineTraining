@@ -19,7 +19,7 @@ var subscriptions = Set<AnyCancellable>()
 testSample(label: "06_01_measuretime"){
     
     let subject = PassthroughSubject<String, TimeoutError>()
-    
+    /// 这里 DispatchQueue.main 在主队列，因为 measureInterval 并不在主线程中执行
     let measure = subject.measureInterval(using: DispatchQueue.main)
     
     subject.sink(receiveCompletion: { completion in

@@ -51,7 +51,9 @@ testSample(label: "FutureSample sample2" ) {
     var subscriptions = Set<AnyCancellable>()
   
     
-    DispatchQueue.global().asyncAfter(deadline: .now() + 1 , execute: {
+    // 2.订阅
+    DispatchQueue.global().asyncAfter(deadline: .now() +  5, execute: {
+        // 在发送之后才订阅 也是能接收到信息，但是如果在发送之前订阅，就接收不到信息。
         future.sink(receiveCompletion: { result in
             print("result : \(result)")
         }, receiveValue: { value in

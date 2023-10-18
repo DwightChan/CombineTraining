@@ -45,5 +45,5 @@ strvalues.publisher
 strvalues.publisher
         .myPrefix()
         .sink {
-            print("myPrefix receive value: \($0)")
+            print("myPrefix receive value: \(String(describing: $0))")
         }

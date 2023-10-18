@@ -39,6 +39,7 @@ testSample(label: "02_trymap"){
         //.print("arrPublisher")
         .tryMap({ (val) -> String in
             if val == 300 {
+                /// 抛出错误 然后不在继续执行。
                 throw MyError.wrongData
             }
             return "\(val)hello"

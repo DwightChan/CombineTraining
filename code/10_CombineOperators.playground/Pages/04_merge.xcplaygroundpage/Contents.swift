@@ -26,6 +26,11 @@ testSample(label: "04_merge") {
             print("04_merge completion:\(completion)")
         }, receiveValue: { value in
             print("04_merge value : \(value)")
+            // 04_merge value : 55
+            // 04_merge value : 200
+            // 04_merge value : 300
+            // 04_merge value : 200
+            // 04_merge value : 201
         }).store(in: &subscriptions)
     
     sourcePublisher.send(55)

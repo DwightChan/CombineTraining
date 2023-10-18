@@ -16,6 +16,7 @@ var subscriptions = Set<AnyCancellable>()
 testSample(label: "04_replace") {
     let sourcePublisher = [12, nil , 13].publisher
     sourcePublisher
+        /// replaceNil:with 会把 nil 替换成 99
         .replaceNil(with: 99)
         .sink(receiveCompletion: { completion in
             print("04_replace completion:\(completion)")
@@ -28,6 +29,7 @@ testSample(label: "04_replace") {
 testSample(label: "04_replaceEmpty") {
     let sourcePublisher = Empty<Int , Never>() /// 注意这里的定义 Empty。
     sourcePublisher
+        // replaceEmpty:with 会把 Empty 替换成 99
         .replaceEmpty(with: 99) // 注意这里接受的类型为 Output
         .sink(receiveCompletion: { completion in
             print("04_replaceEmpty completion:\(completion)")
@@ -40,6 +42,7 @@ testSample(label: "04_replaceEmpty") {
 testSample(label: "04_replaceEmpty1") {
     let sourcePublisher = [].publisher
     sourcePublisher
+        // replaceEmpty:with 会把 Empty 替换成 99
         .replaceEmpty(with: 99) // 注意这里接受的类型为 Output
         .sink(receiveCompletion: { completion in
             print("04_replaceEmpty1 completion:\(completion)")

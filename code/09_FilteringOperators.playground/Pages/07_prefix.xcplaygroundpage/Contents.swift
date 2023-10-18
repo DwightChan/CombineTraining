@@ -13,6 +13,7 @@ public func testSample(label: String , testBlock: () -> Void) {
 var subscriptions = Set<AnyCancellable>()
 
 // prefix 将会把200,201 过滤掉
+/// 取前两个元素
 testSample(label: "07_prefix"){
     let arrPublisher = [10,11,200,201].publisher
     arrPublisher
@@ -26,8 +27,10 @@ testSample(label: "07_prefix"){
 }
 
 // prefix:while 将会把200,201 过滤掉
+/// prefix:while 将会把满足条件的元素传递给下游。
+/// prefix:while 将会把不满足条件的元素过滤掉。
 testSample(label: "07_prefix_01"){
-    let arrPublisher = [15,12,11,200,11,201].publisher
+    let arrPublisher = [12,11,200,11,201].publisher
     arrPublisher
        // .print("prefix")
         .prefix(while: {
@@ -41,6 +44,7 @@ testSample(label: "07_prefix_01"){
 }
  
 // prefix:untilOutputFrom 停止接受信号, 示例中的 4，5 将不被接收。
+/// prefix:untilOutputFrom 会一直接收信号，直到readyPublisher 发送事件， prefix:untilOutputFrom 将会停止接收信号。
 testSample(label: "07_prefix_02") {
     let sourcePublisher = PassthroughSubject<Int, Never>()
     let readyPublisher = PassthroughSubject<Void, Never>() /// 发送事件时， 停止接收。

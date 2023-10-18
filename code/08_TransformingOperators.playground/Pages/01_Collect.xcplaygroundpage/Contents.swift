@@ -13,6 +13,7 @@ public func testSample(label: String , testBlock: () -> Void) {
 var subscriptions = Set<AnyCancellable>()
 
 /// collect, 一次性获取所有的元素。
+/// 先将所有的元素收集起来，然后一次性发送出去 给订阅者。
 testSample(label: "01_Collect"){
     let arrPublisher = [100,200,300,20,14].publisher
     arrPublisher
@@ -26,6 +27,7 @@ testSample(label: "01_Collect"){
 }
 
 /// collect, 获取指定的 元素个数。
+/// 先将指定个数的元素收集起来，然后一次性发送出去 给订阅者。
 testSample(label: "01_Collect02") {
     let sourcePublisher = PassthroughSubject<Int, Never>()
     let collectPublisher = sourcePublisher

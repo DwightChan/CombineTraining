@@ -17,11 +17,19 @@ testSample(label: "01_Prepend"){
     let arrPublisher = [100,200,300,20,14].publisher
     arrPublisher
         // .print("arrPublisher")
+        /// prepend, 在数组前添加元素， 数据由sourcePublisher发布者产生。
         .prepend(2,4)
         .sink(receiveCompletion: { completion in
             print("01_Prepend completion:\(completion)")
         }, receiveValue: { value in
             print("01_Prepend value : \(value)")
+            // 01_Prepend value : 2
+            // 01_Prepend value : 4
+            // 01_Prepend value : 100
+            // 01_Prepend value : 200
+            // 01_Prepend value : 300
+            // 01_Prepend value : 20
+            // 01_Prepend value : 14
         }).store(in: &subscriptions)
 }
 
@@ -35,6 +43,13 @@ testSample(label: "01_Prepend02") {
             print("01_Prepend02 completion:\(completion)")
         }, receiveValue: { value in
             print("01_Prepend02 value : \(value)")
+            // 01_Prepend02 value : 20
+            // 01_Prepend02 value : 40
+            // 01_Prepend02 value : 50
+            // 01_Prepend02 value : 55
+            // 01_Prepend02 value : 200
+            // 01_Prepend02 value : 300
+            // 01_Prepend02 value : 200
         }).store(in: &subscriptions)
     
     sourcePublisher.send(55)
@@ -74,6 +89,10 @@ testSample(label: "01_Prepend04") {
             print("01_Prepend04 completion:\(completion)")
         }, receiveValue: { value in
             print("01_Prepend04 value : \(value)")
+            // 01_Prepend04 value : 99
+            // 01_Prepend04 value : 100
+            // 01_Prepend04 value : 55
+            // 01_Prepend04 value : 200
         }).store(in: &subscriptions)
     
     sourcePublisher.send(55)
@@ -94,10 +113,14 @@ testSample(label: "01_Prepend05") {
             print("01_Prepend05 completion:\(completion)")
         }, receiveValue: { value in
             print("01_Prepend05 value : \(value)")
+            // 01_Prepend05 value : 55
+            // 01_Prepend05 value : 200
+
         }).store(in: &subscriptions)
     
     arrPublisher.send(100)
     arrPublisher.send(200)
+    /// 这一个非常重要，它意味着arrPublisher 已经结束，后续的 sourcePublisher 才可以继续发布数据；否则后续 收不到。
     /// 这一个非常重要，它意味着arrPublisher 已经结束，后续的 sourcePublisher 才可以继续发布数据；否则后续 收不到。
     arrPublisher.send(completion: .finished)
     

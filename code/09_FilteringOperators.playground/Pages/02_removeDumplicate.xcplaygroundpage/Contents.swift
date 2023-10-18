@@ -12,6 +12,8 @@ public func testSample(label: String , testBlock: () -> Void) {
 var subscriptions = Set<AnyCancellable>()
 
 /// removeDuplicates,删除掉 相邻重复元素。
+/// removeDuplicates 会把相邻重复的元素过滤掉。
+/// removeDuplicates 会把不相邻重复的元素传递给下游。
 testSample(label: "01_removeDuplicates"){
     let arrPublisher = [10,10,200,11,20,11].publisher
     arrPublisher

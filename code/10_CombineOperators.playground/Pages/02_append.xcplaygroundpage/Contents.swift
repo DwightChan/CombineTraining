@@ -21,6 +21,7 @@ testSample(label: "02_append"){
             print("02_apend completion:\(completion)")
         }, receiveValue: { value in
             print("02_apend value : \(value)")
+            /// 100,200,300,20,14,2,4
         }).store(in: &subscriptions)
 }
 
@@ -34,6 +35,9 @@ testSample(label: "02_append02") {
             print("02_append02 completion:\(completion)")
         }, receiveValue: { value in
             print("02_append02 value : \(value)")
+            // 02_append02 value : 55
+            // 02_append02 value : 200
+            
         }).store(in: &subscriptions)
     
     sourcePublisher.send(55)

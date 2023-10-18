@@ -52,7 +52,7 @@ testSample(label: "07_satisfyAll") {
             print("07_satisfyAll value : \(value)") // allSatisfy通过验证 value 为true,否则false。
         }).store(in: &subscriptions)
     
-    sourcePublisher.send("testFirst11")
+//    sourcePublisher.send("testFirst11")
     sourcePublisher.send("testSecond12")
     sourcePublisher.send("testThird12")
     sourcePublisher.send(completion: .finished)

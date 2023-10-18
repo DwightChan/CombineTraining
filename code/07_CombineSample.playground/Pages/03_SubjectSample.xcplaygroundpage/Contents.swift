@@ -111,6 +111,7 @@ testSample(label: "Subject sample 2" ) {
     subscription.cancel()
     subscriber.cancel()
     
+    // 自定义的订阅者，也可以进行取消。 需要遵循 Cancellable 协议。
 //        let sink = Subscribers.Sink<String, MyError> { _ in
 //            //
 //        } receiveValue: {
@@ -229,7 +230,7 @@ testSample(label: "Subject sample 4" ) {
     
     subject.send("hello ,world.3333")
     print("======", subject.value)
-    
+    /// 通过 value 属性，可以获取到最新的值。 相当于 发送了一个最新的值。 会被订阅者接收到
     subject.value = "setted by value"
     
     subject.send(completion: .finished)

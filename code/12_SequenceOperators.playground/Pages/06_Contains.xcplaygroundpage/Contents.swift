@@ -15,6 +15,7 @@ var subscriptions = Set<AnyCancellable>()
 testSample(label: "06_Contains") {
     let sourcePublisher = PassthroughSubject<String, Never>()
     sourcePublisher
+    /// contains 结果 为true 传递给了下游
         .contains("Second12") /// 参数遵循Equatable 协议,且 参数类型和 发布类型一致。
         .sink(receiveCompletion: { completion in
             print("06_Contains completion:\(completion)")

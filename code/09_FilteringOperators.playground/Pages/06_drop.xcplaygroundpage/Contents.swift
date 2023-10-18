@@ -13,6 +13,7 @@ public func testSample(label: String , testBlock: () -> Void) {
 var subscriptions = Set<AnyCancellable>()
 
 // dropFirst 将会把10 过滤掉
+// dropFirst 将会把第一个元素过滤掉。
 testSample(label: "06_drop"){
     let arrPublisher = [10,11,200,201].publisher
     arrPublisher
@@ -26,6 +27,7 @@ testSample(label: "06_drop"){
 }
 
 // dropFirst(2) 将会把10,11 过滤掉
+/// dropFirst(2) 将会把前两个元素过滤掉。
 testSample(label: "06_drop_01"){
     let arrPublisher = [10,11,200,201].publisher
     arrPublisher
@@ -39,6 +41,8 @@ testSample(label: "06_drop_01"){
 }
 
 // drop:while 将会把10,11,12,14 过滤掉
+/// drop:while 将会把满足条件的元素过滤掉。
+/// drop:while 将会把不满足条件的元素传递给下游。
 testSample(label: "06_drop_02"){
     let arrPublisher = [10,11,12,14,15,200,201].publisher
     arrPublisher
@@ -55,6 +59,7 @@ testSample(label: "06_drop_02"){
 }
 
 // drop:untilOutputFrom 发送接受信号。
+/// drop:untilOutputFrom 直到指定的Publisher 发送事件， 才接收。
 testSample(label: "06_drop_03") {
     let sourcePublisher = PassthroughSubject<Int, Never>()
     let readyPublisher = PassthroughSubject<Void, Never>() /// 发送事件时， 才接收。
@@ -76,6 +81,7 @@ testSample(label: "06_drop_03") {
 }
 
 // drop:untilOutputFrom 发送接受信号。讨论这种写法的错误。
+/// 这里因为指定发布者没有发布消息，所以，drop 操作会一直执行，导致，下游接收不到任何消息。
 testSample(label: "06_drop_04_ng"){
     let readyPublisher = PassthroughSubject<Void, Never>()
     let arrPublisher = [10,11,12,14,15,200,201].publisher

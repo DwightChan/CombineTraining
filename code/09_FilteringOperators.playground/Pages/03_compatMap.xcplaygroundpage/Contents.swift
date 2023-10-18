@@ -13,6 +13,8 @@ public func testSample(label: String , testBlock: () -> Void) {
 var subscriptions = Set<AnyCancellable>()
  
 /// compactMap, 如果返回的为nil 的话，可以直接忽略掉。
+/// compactMap 会把不为nil 的元素传递给下游。
+/// compactMap 会把为nil 的元素过滤掉。
 testSample(label: "03_compatMap"){
     let numbers = (0...5).publisher
     let romanNumeralDict: [Int : String] = [1: "I", 2: "II", 3: "III", 5: "V"]
@@ -28,6 +30,10 @@ testSample(label: "03_compatMap"){
     let cancellable = numbers
         .compactMap({
             Float($0)
+            /// 这里返回的为 Optional<Float> 类型
+            /// 如果返回的为nil 的话，可以直接忽略掉。
+            /// compactMap 会把不为nil 的元素传递给下游。
+            /// Float("abc") // nil
         })
         .sink(receiveCompletion: { completion in
             print("     01_removeDuplicates02 completion:\(completion)")

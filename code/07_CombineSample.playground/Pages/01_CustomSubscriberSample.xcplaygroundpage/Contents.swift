@@ -13,8 +13,9 @@ public func testSample(label: String , testBlock: () -> Void) {
 
 testSample(label: "Subscriber sample1" ) {
     
+    /// 用 1...7 作为数据源 range 类型.publisher 创建一个 publisher，同时是会依次发送 1...7 的数据。
     let publisher = (1...7).publisher
-    
+    // 遵循一个协议 Subscriber
     final class IntSubscriber : Subscriber {
         
         // 1.设定接受的数据类型
@@ -32,10 +33,13 @@ testSample(label: "Subscriber sample1" ) {
         // 3.在每次接受数据后，重新设定接受的 数据次数
         // subscription.request 会被覆盖
         // 如果是 0 表示 不再接受, 而总次数的 计算 比较灵活（和publisher的数据个数，subscription.request， 和 当前次的调整）有关系。
-        //
+        // 注意：表示的是下一次还允许接受的数据个数，而不是总共允许接受的数据个数。
         func receive(_ input: Int) -> Subscribers.Demand {
             print("receive value : \(input)")
+            // 无限制
 //            return .unlimited
+            // 限制最大值
+            // return .none
             return .max(0)
         }
         
@@ -82,7 +86,8 @@ testSample(label: "Subscriber sample2" ) {
         }
     }
  
-    
+    // 1.创建一个 publisher
+    // 并且在创建的时候，就会发送数据 一条数据 1
     let publisher = CurrentValueSubject<Int, Never>(1)
     
     
@@ -90,6 +95,7 @@ testSample(label: "Subscriber sample2" ) {
     
     publisher.subscribe(subscriber)
     publisher.send(completion: .finished)
+    /// 在发送数据之后，再发送完成，会导致数据丢失。
     publisher.send(11)
     publisher.send(12)
     
